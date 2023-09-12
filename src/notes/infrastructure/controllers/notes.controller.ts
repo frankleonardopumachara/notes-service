@@ -12,7 +12,9 @@ import { NotesManagementService } from '../../application/services/notes-managem
 import { CreateNoteDto } from '../../application/dtos/create-note.dto'
 import { UpdateNoteDto } from '../../application/dtos/update-note.dto'
 import { NoteNotFound } from "../../application/errors/note-not-found";
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('Notes')
 @Controller('notes')
 export class NotesController {
   constructor(private notesService: NotesManagementService) {}
