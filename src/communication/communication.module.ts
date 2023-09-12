@@ -10,18 +10,23 @@ import { IBugsReportService } from './infrastructure/interfaces/bugs-report.inte
 
 @Module({
   imports: [
-    ClientsModule.register([
+    ClientsModule.registerAsync([
       {
         name: Constants.GrpcClient,
-        transport: Transport.GRPC,
-        options: {
-          package: NOTES_MICROSERVICE.PACKAGE,
-          protoPath: [
-            join(__dirname, NOTES_MICROSERVICE.NOTES_SERVICE.PROTO_PATH),
-            // join(__dirname, NOTES_MICROSERVICE.NOTES_LISTS_SERVICE.PROTO_PATH),
-            // join(__dirname, NOTES_MICROSERVICE.SETTINGS_SERVICE.PROTO_PATH),
-          ],
+        useFactory: (config: ConfigService) => {
+          return {
+            transport: Transport.GRPC,
+            options: {
+              url: config.get<string>('notesMicroservice'),
+              package: NOTES_MICROSERVICE.PACKAGE,
+              protoPath: join(
+                __dirname,
+                NOTES_MICROSERVICE.NOTES_SERVICE.PROTO_PATH,
+              ),
+            },
+          }
         },
+        inject: [ConfigService],
       },
     ]),
     HttpModule.registerAsync({
