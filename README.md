@@ -1,5 +1,5 @@
 ## Nota
-El codigo desarrollado se encuentra en la rama develop, se uso gitflow para simular un ambiente de desarrollo en equipo
+El codigo desarrollado se encuentra en la rama develop, se usa gitflow para simular un ambiente de desarrollo en equipo
 
 ## Descripcion arquitectura
 
