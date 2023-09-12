@@ -1,3 +1,6 @@
+## Nota
+El codigo desarrollado se encuentra en la rama develop, se uso gitflow para simular un ambiente de desarrollo en equipo
+
 ## Descripcion arquitectura
 
 Los modulos de la aplicacion tienen utilizar una arquitectura limpia devidida por capas:
