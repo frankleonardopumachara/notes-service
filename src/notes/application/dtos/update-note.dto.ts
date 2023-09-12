@@ -1,6 +1,9 @@
 import { IsString } from 'class-validator'
 
-export class CreateNoteDto {
+export class UpdateNoteDto {
+  @IsString()
+  state: number
+
   @IsString()
   title: string
 }
