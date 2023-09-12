@@ -8,11 +8,11 @@ import { SimplifiedNote } from '../../../communication/infrastructure/types/note
 import { Note } from '../../../communication/infrastructure/types'
 
 @Injectable()
-export class NotesService {
+export class NotesManagementService {
   constructor(private notesMicroservice: NotesMicroservice) {}
 
   getNotes(): Promise<SimplifiedNote[]> {
-    return this.notesMicroservice.notesService.GetAll()
+    return this.notesMicroservice.notesService.GetAll({})
   }
 
   async createNote(dto: CreateNoteDto): Promise<Result<Error, Note>> {

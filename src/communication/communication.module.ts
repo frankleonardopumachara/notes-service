@@ -5,6 +5,8 @@ import { HttpModule } from '@nestjs/axios'
 import { Constants, NOTES_MICROSERVICE } from './infrastructure/constants'
 import { BugsReportService } from './infrastructure/clients/bugs-report.service'
 import { NotesMicroservice } from './infrastructure/microservices/notes.microservice'
+import { ConfigService } from '@nestjs/config'
+import { IBugsReportService } from './infrastructure/interfaces/bugs-report.interface'
 
 @Module({
   imports: [
@@ -16,17 +18,26 @@ import { NotesMicroservice } from './infrastructure/microservices/notes.microser
           package: NOTES_MICROSERVICE.PACKAGE,
           protoPath: [
             join(__dirname, NOTES_MICROSERVICE.NOTES_SERVICE.PROTO_PATH),
-            join(__dirname, NOTES_MICROSERVICE.NOTES_LISTS_SERVICE.PROTO_PATH),
-            join(__dirname, NOTES_MICROSERVICE.SETTINGS_SERVICE.PROTO_PATH),
+            // join(__dirname, NOTES_MICROSERVICE.NOTES_LISTS_SERVICE.PROTO_PATH),
+            // join(__dirname, NOTES_MICROSERVICE.SETTINGS_SERVICE.PROTO_PATH),
           ],
         },
       },
     ]),
-    HttpModule.register({
-      url: 'http://localhost:8080',
+    HttpModule.registerAsync({
+      useFactory: (config: ConfigService) => ({
+        baseURL: config.get('bugsServiceBaseUrl'),
+      }),
+      inject: [ConfigService],
     }),
   ],
-  exports: [NotesMicroservice],
-  providers: [BugsReportService],
+  exports: [NotesMicroservice, IBugsReportService],
+  providers: [
+    NotesMicroservice,
+    {
+      provide: IBugsReportService,
+      useClass: BugsReportService,
+    },
+  ],
 })
 export class CommunicationModule {}

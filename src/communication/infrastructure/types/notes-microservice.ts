@@ -1,7 +1,7 @@
 export interface NotesService {
   Save(param: AddNote): Promise<Note>
 
-  GetAll(): Promise<SimplifiedNote[]>
+  GetAll({}): Promise<SimplifiedNote[]>
 
   GetOne(param: RequestId): Promise<Note>
 

@@ -8,14 +8,14 @@ import {
   Post,
   Put,
 } from '@nestjs/common'
-import { NotesService } from '../../application/services/notes.service'
+import { NotesManagementService } from '../../application/services/notes-management.service'
 import { CreateNoteDto } from '../../application/dtos/create-note.dto'
 import { UpdateNoteDto } from '../../application/dtos/update-note.dto'
 import { NoteNotFound } from '../../domain/errors/note-not-found'
 
 @Controller('notes')
 export class NotesController {
-  constructor(private notesService: NotesService) {}
+  constructor(private notesService: NotesManagementService) {}
 
   @Get()
   getNotes() {
