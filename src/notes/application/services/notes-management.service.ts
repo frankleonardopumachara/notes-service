@@ -2,16 +2,16 @@ import { Injectable } from '@nestjs/common'
 import { CreateNoteDto } from '../dtos/create-note.dto'
 import { UpdateNoteDto } from '../dtos/update-note.dto'
 import { Result } from 'typescript-result'
-import { NoteNotFound } from '../../domain/errors/note-not-found'
 import { NotesMicroservice } from '../../../communication/infrastructure/microservices/notes.microservice'
 import { SimplifiedNote } from '../../../communication/infrastructure/types/notes-microservice'
 import { Note } from '../../../communication/infrastructure/types'
+import { NoteNotFound } from '../errors/note-not-found'
 
 @Injectable()
 export class NotesManagementService {
   constructor(private notesMicroservice: NotesMicroservice) {}
 
-  getNotes(): Promise<SimplifiedNote[]> {
+  getNotes(): Promise<{ SimplifiedNotes: SimplifiedNote[] }> {
     return this.notesMicroservice.notesService.GetAll({})
   }
 
@@ -24,7 +24,7 @@ export class NotesManagementService {
     }
   }
 
-  async getNoteByIdOrFail(
+  async getNoteById(
     noteId: string,
   ): Promise<Result<NoteNotFound | Error, Note>> {
     try {

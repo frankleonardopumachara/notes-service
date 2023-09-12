@@ -11,7 +11,7 @@ import {
 import { NotesManagementService } from '../../application/services/notes-management.service'
 import { CreateNoteDto } from '../../application/dtos/create-note.dto'
 import { UpdateNoteDto } from '../../application/dtos/update-note.dto'
-import { NoteNotFound } from '../../domain/errors/note-not-found'
+import { NoteNotFound } from "../../application/errors/note-not-found";
 
 @Controller('notes')
 export class NotesController {
@@ -33,7 +33,7 @@ export class NotesController {
 
   @Get(':noteId')
   async getNoteById(@Param('noteId') noteId: string) {
-    const result = await this.notesService.getNoteByIdOrFail(noteId)
+    const result = await this.notesService.getNoteById(noteId)
 
     if (result.isSuccess()) {
       return result.value
