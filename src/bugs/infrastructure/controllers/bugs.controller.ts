@@ -1,7 +1,9 @@
 import { Body, Controller, Get, Post } from '@nestjs/common'
 import { CreateBugReportDto } from '../../application/dtos/create-bug-report.dto'
 import { BugsService } from '../../application/services/bugs.service'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('Bugs')
 @Controller('bugs')
 export class BugsController {
   constructor(private bugsService: BugsService) {}

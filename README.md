@@ -1,9 +1,13 @@
 ## Nota
-El codigo desarrollado se encuentra en la rama develop, se uso gitflow para simular un ambiente de desarrollo en equipo
+El codigo desarrollado se encuentra en la rama develop, se usa gitflow para simular un ambiente de desarrollo en equipo
 
 ## Descripcion arquitectura
 
-Los modulos de la aplicacion tienen utilizar una arquitectura limpia devidida por capas:
+El proyecto consiste en conectarse con 2 servicios externos, donde un servicio es usando el bus de comunicacion gRPC (notes) y el otro usando
+http (bugs) para la comunicacion 
+
+Los modulos de la aplicacion utilizan una arquitectura limpia dividida por capas:
+
 1. Infraestructura: Se encuentran conexiones a otros servicio, bases de datos.
 2. Aplicacion: Contiene los servicios de la aplicacion y dtos (objetos de transferencia de datos).
 3. Dominio: Contiene las entidades de la aplicacion y repositorios.
